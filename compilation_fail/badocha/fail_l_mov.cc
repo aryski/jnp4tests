@@ -8,5 +8,5 @@ int main() {
     // LValue tests
     using fail_l_mov = Program<Mov<Num<0>, Num<0>>>;
 
-    test_machine::boot<fail_l_mov>();
+    constexpr auto x = test_machine::boot<fail_l_mov>();
 }

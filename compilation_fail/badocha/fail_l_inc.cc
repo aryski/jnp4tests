@@ -8,5 +8,5 @@ int main() {
     // LValue tests
     using fail_l_inc = Program<Inc<Num<0>>>;
 
-    test_machine::boot<fail_l_inc>();
+   constexpr auto x =  test_machine::boot<fail_l_inc>();
 }

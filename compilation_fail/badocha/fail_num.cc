@@ -8,5 +8,5 @@ int main() {
     // Test for passing non instruction
     using fail_num = Program<Num<0>>;
 
-    test_machine::boot<fail_num>();
+    constexpr auto x = test_machine::boot<fail_num>();
 }

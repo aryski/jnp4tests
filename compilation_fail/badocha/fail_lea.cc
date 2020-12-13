@@ -8,5 +8,5 @@ int main() {
     // Test for passing non instruction
     using fail_lea = Program<Lea<Id("a")>>;
 
-    test_machine::boot<fail_lea>();
+    constexpr auto x = test_machine::boot<fail_lea>();
 }
