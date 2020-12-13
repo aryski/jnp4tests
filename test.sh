@@ -109,3 +109,7 @@ traverse_folder "$tests/ciebiera" 4
 echo -ne "${GREEN}CORRECT: $correct ${NOCOLOR}\n"
 echo -ne "${RED}FAILED: $leaked ${NOCOLOR}\n"
 echo -ne "TOTAL: $total\n"
+
+if [[ "$leaked" -neq 0 ]]; then 
+echo -ne "${GREEN}Testy: too_many_same_name oraz test_declarations nie wynikają z jednoznacznej interpretacji treści zadania dlatego inna odpowiedź nie sugeruje konieczności poprawy${NOCOLOR}\n"
+fi
