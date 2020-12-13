@@ -42,14 +42,15 @@ function traverse_folder() {
 function run_test() {
   input_file="$1"
   variant="$2"
-  
   ((total++))
   echo -e "\e[1mTest $f \e[0m"
   
-  OUTPUT=$(clang -Wall -Wextra -std=c++17 -O2 -lstdc++ $input_file 2>&1)
-  
-  result=$?
-  
+  if [[ "$variant" -eq 4 ]]; then
+    OUTPUT=$(clang -Wall -Wextra -std=c++17 -O2 -lstdc++ -fconstexpr-depth=3000 $input_file 2>&1)
+  else
+    OUTPUT=$(clang -Wall -Wextra -std=c++17 -O2 -lstdc++ $input_file 2>&1)
+  fi  
+    result=$?
     if [[ "$variant" -eq 1 ]]; then
         if [[ "$result" -eq 1 ]]; then
             echo -ne "${GREEN}OK${NOCOLOR}\n"
@@ -89,7 +90,7 @@ function run_test() {
             let "leaked++"
         fi
     fi
-  }
+}
 
 temp_out=$(mktemp)
 trap 'rm -f "$temp_out"' INT TERM HUP EXIT
@@ -97,6 +98,7 @@ trap 'rm -f "$temp_out"' INT TERM HUP EXIT
 traverse_folder "$tests/compilation_fail" 1
 traverse_folder "$tests/compilation_success" 2
 traverse_folder "$tests/infinite_loop" 3
+traverse_folder "$tests/ciebiera" 4
 echo -ne "${GREEN}CORRECT: $correct ${NOCOLOR}\n"
 echo -ne "${RED}FAILED: $leaked ${NOCOLOR}\n"
 echo -ne "TOTAL: $total\n"
