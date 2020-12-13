@@ -9,15 +9,22 @@ tests=$(pwd)
 computer="$1"
 fedback_size="$2"
 
+basename_computer=$(basename "$computer")
+
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+NOCOLOR='\033[0m'
+
+if [[ "$basename_computer" != "computer.h" ]]; then
+  echo -ne "${RED}Błędna ścieżka do computer.h${NOCOLOR}\n"
+  exit 1
+fi
+
 threshold=${3:-1}
 
 total=0
 correct=0
 leaked=0
-
-RED='\033[0;31m'
-GREEN='\033[0;32m'
-NOCOLOR='\033[0m'
   
 function traverse_folder() {
   folder="$1"
